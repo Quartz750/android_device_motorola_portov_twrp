@@ -1,0 +1,6 @@
+service odm.keymint-strongbox /odm/bin/hw/android.hardware.security.keymint-service.strongbox
+    class early_hal
+    user root
+    group root
+    setenv LD_LIBRARY_PATH /vendor/lib64:/vendor/lib64/hw:/odm/lib64:/system/lib64:/sbin
+    seclabel u:r:recovery:s0

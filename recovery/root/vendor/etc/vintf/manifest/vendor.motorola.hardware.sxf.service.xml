@@ -1,0 +1,11 @@
+<!--
+    Input:
+        motorola/hal/maxe/vendor.motorola.hardware.sxf.service.xml
+-->
+<manifest version="8.0" type="device">
+    <hal format="aidl">
+        <name>motorola.hardware.sxf</name>
+        <version>2</version>
+        <fqname>IMotoSxf/default</fqname>
+    </hal>
+</manifest>

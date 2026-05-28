@@ -1,0 +1,11 @@
+# Soft dependencies extracted from modules themselves.
+softdep q6_notifier_dlkm pre: qcom_q6v5_pas
+softdep msm_video pre: subsys-pil-tz msm-mmrm
+softdep msm_kgsl pre: arm_smmu nvmem_qfprom socinfo governor_msm_adreno_tz governor_gpubw_mon
+softdep ilitek_v4_mmi pre:msm_drm
+softdep qsee_ipc_irq_bridge pre: qcom_ipcc
+softdep dwc3_msm pre: phy-generic phy-msm-snps-hs phy-msm-ssusb-qmp eud
+softdep machine_dlkm pre: bt_fm_slim
+softdep ipam pre: subsys-pil-tz
+softdep ipam pre: qcom-arm-smmu-mod
+softdep leds_qti_tri_led pre: pwm-qti-lpg

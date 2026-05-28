@@ -1,0 +1,11 @@
+<!--
+    Input:
+        motorola/hardware/interfaces/display/panel/aidl/default/com.motorola.hardware.display.panel-service.xml
+-->
+<manifest version="8.0" type="device">
+    <hal format="aidl">
+        <name>com.motorola.hardware.display.panel</name>
+        <version>2</version>
+        <fqname>IDisplayPanel/default</fqname>
+    </hal>
+</manifest>

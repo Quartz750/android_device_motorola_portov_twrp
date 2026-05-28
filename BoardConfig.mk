@@ -1,0 +1,226 @@
+DEVICE_PATH := device/motorola/portov
+
+# A/B
+AB_OTA_UPDATER := true
+
+AB_OTA_PARTITIONS += \
+    boot \
+    dtbo \
+    init_boot \
+    product \
+    recovery \
+    system \
+    system_dlkm \
+    system_ext \
+    vbmeta \
+    vbmeta_system \
+    vendor \
+    vendor_boot \
+    vendor_dlkm
+
+# Architecture
+TARGET_ARCH := arm64
+TARGET_ARCH_VARIANT := armv8-2a-dotprod
+TARGET_CPU_ABI := arm64-v8a
+TARGET_CPU_VARIANT := generic
+TARGET_CPU_VARIANT_RUNTIME := kryo385
+
+# Bootloader
+TARGET_BOOTLOADER_BOARD_NAME := portov
+TARGET_NO_BOOTLOADER := true
+
+# Broken
+BUILD_BROKEN_DUP_RULES := true
+ALLOW_MISSING_DEPENDENCIES := true
+BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
+
+# Decrypt
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_CRYPTO_FBE := true
+BOARD_USES_QCOM_FBE_DECRYPTION := true
+TW_INCLUDE_FBE_METADATA_DECRYPT := true
+TARGET_PROVIDES_KEYMASTER := true
+TARGET_KEYMASTER_WAIT_FOR_QSEE := true
+TW_INCLUDE_F2FS := true
+TARGET_USERIMAGES_USE_EXT4 := true
+BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
+TW_INCLUDE_OMAPI := true
+
+# Debug
+TARGET_RECOVERY_DEVICE_MODULES += debuggerd
+TARGET_RECOVERY_DEVICE_MODULES += strace
+RECOVERY_BINARY_SOURCE_FILES += $(TARGET_OUT_EXECUTABLES)/debuggerd
+RECOVERY_BINARY_SOURCE_FILES += $(TARGET_OUT_EXECUTABLES)/strace
+
+# Filesystem
+TARGET_FS_CONFIG_GEN := $(DEVICE_PATH)/configs/config.fs
+
+# Init Boot
+BOARD_INIT_BOOT_HEADER_VERSION := 4
+BOARD_MKBOOTIMG_INIT_ARGS += --header_version $(BOARD_INIT_BOOT_HEADER_VERSION)
+
+# Kernel
+BOARD_KERNEL_BASE        := 0x00000000
+BOARD_KERNEL_PAGESIZE    := 4096
+BOARD_KERNEL_TAGS_OFFSET := 0x01E00000
+BOARD_RAMDISK_OFFSET     := 0x02000000
+BOARD_KERNEL_PAGESIZE := 0x00001000
+BOARD_BOOT_HEADER_VERSION := 4
+
+BOARD_RAMDISK_USE_LZ4 := true
+BOARD_INCLUDE_DTB_IN_BOOTIMG := true
+BOARD_USES_GENERIC_KERNEL_IMAGE := true
+BOARD_KERNEL_IMAGE_NAME := Image.gz
+BOARD_MOVE_GSI_AVB_KEYS_TO_VENDOR_BOOT := true
+
+BOARD_KERNEL_CMDLINE := androidboot.hardware=qcom androidboot.memcg=1 androidboot.usbcontroller=a600000.dwc3 androidboot.load_modules_parallel=true androidboot.selinux=permissive max_loop=48
+
+BOARD_SYSTEM_KERNEL_MODULES := $(wildcard $(DEVICE_PATH)/prebuilt/system_dlkm/*.ko)
+BOARD_SYSTEM_KERNEL_MODULES_LOAD := $(patsubst %,$(DEVICE_PATH)/prebuilt/vendor_dlkm/%,$(shell cat $(DEVICE_PATH)/prebuilt/system_dlkm/modules.load))
+BOARD_VENDOR_KERNEL_MODULES := $(wildcard $(DEVICE_PATH)/prebuilt/vendor_dlkm/*.ko)
+BOARD_VENDOR_KERNEL_MODULES_LOAD := $(patsubst %,$(DEVICE_PATH)/prebuilt/vendor_dlkm/%,$(shell cat $(DEVICE_PATH)/prebuilt/vendor_dlkm/modules.load))
+BOARD_VENDOR_RAMDISK_KERNEL_MODULES := $(wildcard $(DEVICE_PATH)/prebuilt/vendor_ramdisk/*.ko)
+BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD := $(patsubst %,$(DEVICE_PATH)/prebuilt/vendor_dlkm/%,$(shell cat $(DEVICE_PATH)/prebuilt/vendor_ramdisk/modules.load))
+BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD := $(patsubst %,$(DEVICE_PATH)/prebuilt/vendor_dlkm/%,$(shell cat $(DEVICE_PATH)/prebuilt/vendor_ramdisk/modules.load.recovery))
+BOOT_KERNEL_MODULES := $(BOARD_VENDOR_RAMDISK_RECOVERY_KERNEL_MODULES_LOAD) $(BOARD_VENDOR_RAMDISK_KERNEL_MODULES_LOAD)
+
+BOARD_MKBOOTIMG_ARGS := --header_version $(BOARD_BOOT_HEADER_VERSION)
+
+# Prebuilt Kernel
+TARGET_KERNEL_CONFIG := portov
+INLINE_KERNEL_BUILDING := true
+TARGET_FORCE_PREBUILT_KERNEL := true
+TARGET_NO_KERNEL_OVERRIDE := true
+TARGET_NO_KERNEL := false
+BOARD_KERNEL_BINARIES := kernel
+TARGET_KERNEL_VERSION := 6.6
+TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilt/dtb.img
+BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilt/dtbo.img
+TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilt/kernel
+PRODUCT_COPY_FILES += \
+    $(DEVICE_PATH)/prebuilt/dtb.img:$(TARGET_COPY_OUT)/dtb.img \
+    $(DEVICE_PATH)/prebuilt/kernel:kernel
+
+# Partitions
+BOARD_FLASH_BLOCK_SIZE := 131072 # (BOARD_KERNEL_PAGESIZE * 32)
+BOARD_BOOTIMAGE_PARTITION_SIZE := 100663296
+BOARD_DTBOIMG_PARTITION_SIZE := 24117248
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 134217728
+BOARD_INIT_BOOT_IMAGE_PARTITION_SIZE := 8388608
+BOARD_VENDOR_BOOTIMAGE_PARTITION_SIZE := 100663296
+BOARD_SUPER_PARTITION_SIZE := 7516192768
+BOARD_SUPER_PARTITION_GROUPS := motorola_dynamic_partitions
+BOARD_MOTOROLA_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_dlkm system_ext vendor vendor_dlkm product
+BOARD_MOTOROLA_DYNAMIC_PARTITIONS_SIZE := 7511998464
+
+BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_SYSTEM_DLKMIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_VENDOR_DLKMIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
+
+TARGET_COPY_OUT_ODM := vendor/odm
+TARGET_COPY_OUT_SYSTEM_DLKM := system_dlkm
+TARGET_COPY_OUT_SYSTEM_EXT := system_ext
+TARGET_COPY_OUT_PRODUCT := product
+TARGET_COPY_OUT_VENDOR := vendor
+TARGET_COPY_OUT_VENDOR_DLKM := vendor_dlkm
+
+BOARD_USES_METADATA_PARTITION := true
+
+# Platform
+BOARD_USES_QCOM_HARDWARE := true
+TARGET_BOARD_PLATFORM := parrot66
+
+BOARD_ROOT_EXTRA_SYMLINKS := \
+    /vendor/fsg:/fsg
+
+# Properties
+TARGET_PRODUCT_PROP += $(DEVICE_PATH)/configs/props/product.prop
+TARGET_SYSTEM_EXT_PROP += $(DEVICE_PATH)/configs/props/system_ext.prop
+TARGET_VENDOR_PROP += $(DEVICE_PATH)/configs/props/vendor.prop
+
+# Recovery
+BOARD_EXCLUDE_KERNEL_FROM_RECOVERY_IMAGE := true
+TARGET_RECOVERY_UI_MARGIN_HEIGHT := 90
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/init/fstab.qcom
+TARGET_RECOVERY_PIXEL_FORMAT := RGBX_8888
+TARGET_USERIMAGES_USE_F2FS := true
+
+# RIL
+ENABLE_VENDOR_RIL_SERVICE := true
+
+# Security
+BOOT_SECURITY_PATCH := 2025-08-01
+VENDOR_SECURITY_PATCH := $(BOOT_SECURITY_PATCH)
+
+# SKU
+ODM_MANIFEST_SKUS += d dn dne
+ODM_MANIFEST_D_FILES := $(DEVICE_PATH)/configs/vintf/manifest_d.xml
+ODM_MANIFEST_DN_FILES := $(DEVICE_PATH)/configs/vintf/manifest_dn.xml
+ODM_MANIFEST_DNE_FILES := $(DEVICE_PATH)/configs/vintf/manifest_dne.xml
+
+# Verified Boot
+BOARD_AVB_ENABLE := true
+BOARD_AVB_ALGORITHM := SHA256_RSA2048
+BOARD_AVB_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
+BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --set_hashtree_disabled_flag
+BOARD_AVB_ROLLBACK_INDEX := 8
+BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX := 8
+
+BOARD_AVB_VBMETA_SYSTEM := system product system_ext
+BOARD_AVB_VBMETA_SYSTEM_ALGORITHM := $(BOARD_AVB_ALGORITHM)
+BOARD_AVB_VBMETA_SYSTEM_KEY_PATH := $(BOARD_AVB_KEY_PATH)
+BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX := 8
+BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX_LOCATION := 2
+
+# Vintf
+PRODUCT_ENFORCE_VINTF_MANIFEST := false
+
+DEVICE_FRAMEWORK_COMPATIBILITY_MATRIX_FILE += \
+    $(DEVICE_PATH)/configs/vintf/compatibility_matrix.xml \
+    hardware/qcom-caf/common/vendor_framework_compatibility_matrix.xml
+DEVICE_MATRIX_FILE := hardware/qcom-caf/common/compatibility_matrix_aidl.xml
+DEVICE_MANIFEST_FILE := $(DEVICE_PATH)/configs/vintf/manifest_parrot.xml
+
+# TWRP Configuration
+TW_THEME := portrait_hdpi
+TW_EXTRA_LANGUAGES := true
+TW_SCREEN_BLANK_ON_BOOT := true
+TW_INPUT_BLACKLIST := "hbtp_vm"
+TW_USE_TOOLBOX := true
+TW_INCLUDE_REPACKTOOLS := true
+TWRP_INCLUDE_LOGCAT := true
+TW_DEFAULT_LANGUAGE := zh_CN
+TW_DEVICE_VERSION := COOLAPK@大黄蜂不是车
+TW_INCLUDE_RESETPROP := true
+TW_INCLUDE_LIBRESETPROP := true
+TARGET_USES_LOGD := true
+TW_EXCLUDE_APEX := true
+TW_LOAD_VENDOR_MODULES_EXCLUDE_GKI := true
+TARGET_SUPPORTS_64_BIT_APPS := true
+
+TW_LOAD_VENDOR_MODULES := "adsp_loader_dlkm.ko chipone_tddi_v3_mmi.ko"
+
+# TWRP display
+TW_BRIGHTNESS_PATH := /sys/class/backlight/panel0-backlight/brightness
+TW_DEFAULT_BRIGHTNESS := 2048
+TW_FRAMERATE := 120
+TW_MAX_BRIGHTNESS := 4095
+TW_SCREEN_BLANK_ON_BOOT := true
+
+# TWRP thremal
+TW_CUSTOM_CPU_TEMP_PATH := "/sys/devices/virtual/thermal/thermal_zone50/temp"
+
+# TWRP file system
+RECOVERY_SDCARD_ON_DATA     := true
+TARGET_USES_MKE2FS          := true
+TW_ENABLE_FS_COMPRESSION    := true
+TW_INCLUDE_FUSE_EXFAT       := true
+TW_INCLUDE_FUSE_NTFS        := true
+TW_INCLUDE_NTFS_3G          := true
+TW_NO_EXFAT_FUSE            := true
+
+# Removed
+TARGET_REMOVE_PACKAGES += CameraExtensionsProxy

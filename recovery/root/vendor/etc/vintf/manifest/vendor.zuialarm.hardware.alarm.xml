@@ -1,0 +1,10 @@
+<!--
+    Input:
+        motorola/hardware/interfaces/poweroffalarm/service/interfaces/alarm/aidl/default/vendor.zuialarm.hardware.alarm.xml
+-->
+<manifest version="8.0" type="device">
+    <hal format="aidl">
+        <name>vendor.zuialarm.hardware.alarm</name>
+        <fqname>IAlarm/default</fqname>
+    </hal>
+</manifest>

@@ -1,0 +1,10 @@
+<!--
+    Input:
+        motorola/hardware/interfaces/fdr/aidl/default/motorola.hardware.fdr.service.xml
+-->
+<manifest version="8.0" type="device">
+    <hal format="aidl">
+        <name>motorola.hardware.fdr</name>
+        <fqname>IFdrControl/default</fqname>
+    </hal>
+</manifest>

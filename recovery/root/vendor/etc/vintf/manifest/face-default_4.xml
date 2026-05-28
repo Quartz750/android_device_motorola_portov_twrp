@@ -1,0 +1,20 @@
+<!--
+ * Copyright (c) 2022-2023 Shenzhen Tetras.AI Technology Co., Ltd.
+ * All Rights Reserved.
+ * Confidential and Proprietary - Shenzhen Tetras.AI Technology Co., Ltd.
+ * The SOFTWARE includes third-party components that may be subject to their own copyrights and licenses. 
+ * 
+ * Third-Party Proprietary Components:
+ *     
+ * Copyright (c) 2021 Qualcomm Technologies, Inc.
+ * All Rights Reserved.
+ * Confidential and Proprietary - Qualcomm Technologies, Inc.
+-->
+
+<manifest version="1.0" type="device">
+    <hal format="aidl">
+        <name>android.hardware.biometrics.face</name>
+        <version>4</version>
+        <fqname>IFace/default</fqname>
+    </hal>
+</manifest>
