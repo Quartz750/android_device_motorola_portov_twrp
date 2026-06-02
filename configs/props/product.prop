@@ -1,5 +1,0 @@
-# Moto
-ro.mot.build.customerid=global
-
-# System Server
-arm64.memtag.process.system_server=off
