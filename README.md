@@ -1,16 +1,17 @@
-TWRP for Motorola g67 power(Moto g100)
-device codename : portov
+# TWRP for Motorola g67 power(Moto g100)
+
+## device codename : portov
 
 hi
 
 what will WORK:
-ADB
-MTP
-BRIGHTNESS
-TOUCH
-DECRYPT
+1.ADB
+2.MTP
+3.BRIGHTNESS
+4.TOUCH
+5.DECRYPT
 
-DISABLED:
-VIBRATION
-OTG
-BATTERY
+BUG:
+1.VIBRATION
+2.OTG
+3.BATTERY
