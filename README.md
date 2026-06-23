@@ -5,6 +5,7 @@
 hi
 
 what will WORK:
+
 1.ADB
 
 2.MTP
@@ -16,6 +17,7 @@ what will WORK:
 5.DECRYPT
 
 BUG:
+
 1.VIBRATION
 
 2.OTG
