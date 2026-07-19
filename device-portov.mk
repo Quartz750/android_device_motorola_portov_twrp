@@ -23,8 +23,6 @@
 # Inherit from OEM SOC-common
 # $(call inherit-product, $(COMMON_PATH)/device-common.mk)
 
-TARGET_RECOVERY_DEVICE_DIRS += $(DEVICE_PATH)/twrp
-
 # Overrides OEM
 PRODUCT_BRAND := motorola
 PRODUCT_NAME := twrp_portov
@@ -144,5 +142,3 @@ BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX_LOCATION := 2
 
 # Enable Fuse Passthrough
 PRODUCT_PROPERTY_OVERRIDES += persist.sys.fuse.passthrough.enable=true
-
-TARGET_RECOVERY_DEVICE_DIRS += $(LOCAL_PATH)/twrp
